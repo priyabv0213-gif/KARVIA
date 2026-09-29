@@ -1,12 +1,17 @@
 # KARVIA — AI-Powered Artisan Commerce, Heritage & Immersive 3D Mobile Platform
 
-> **Problem Addressed**: Smart India Hackathon (SIH26090) — *AI-Driven Market Linkage and Smart Cataloging Mobile Application for Marginalized Artisans.*
+> *Problem Addressed: Smart India Hackathon (SIH26197) — *AI-Driven Market Linkage and Smart Cataloging Mobile Application for Marginalized Artisans.
 
-KARVIA is a production-ready, installable mobile application engineered for Android and iOS that digitizes the complete economic journey of Indian weavers, potters, and traditional craft communities without diluting their cultural heritage.
+> *Project Status*: Prototype under development — approximately 40% of the prototype has been developed.
+
+KARVIA is an evolving mobile application prototype engineered for Android and iOS that aims to digitize the economic journey of Indian weavers, potters, and traditional craft communities while preserving their cultural heritage.
+
+The current implementation represents an early-stage prototype, with core application structures, interfaces, workflows, and feature modules developed as part of the ongoing KARVIA project.
 
 ---
 
 ## Table of Contents
+
 1. [Project Overview](#project-overview)
 2. [Technology Stack](#technology-stack)
 3. [Architecture](#architecture)
@@ -30,352 +35,397 @@ KARVIA is a production-ready, installable mobile application engineered for Andr
 ## 1. Project Overview
 
 KARVIA positions itself as:
+
 $$\text{MARKETPLACE} + \text{AI BUSINESS ASSISTANT} + \text{CRAFT INTELLIGENCE} + \text{HERITAGE TECH} + \text{3D/AR COMMERCE}$$
 
 ### The End-to-End Artisan Journey
-```
-ARTISAN
-   ↓
-CREATE PROFILE & SELECT LANGUAGE (13 Indian Languages)
-   ↓
-SMART CATALOGING (Photo + Voice Description)
-   ↓
-AI CRAFT ANALYSIS (Technique, Materials, Weave density, Production Days)
-   ↓
-MULTIMODAL CRAFT EVIDENCE PROFILE (GI Tag + Loom Video + Macro Photo)
-   ↓
-LIVING-WAGE FAIR PRICING (Cost-Plus formula guaranteeing fair labour wages)
-   ↓
-CRAFT-CONSTRAINED TREND FUSION (Contemporary palettes respecting original motifs)
-   ↓
-PUBLISH TO BUYER MARKETPLACE
-   ↓
-BUYER DISCOVERY & IMMERSIVE 3D / AR TRY-ON
-   ↓
-DIRECT-TO-ARTISAN ESCROW CHECKOUT & PAYMENT
-   ↓
-ORDER DISPATCH (India Post SpeedPost Tracking)
-   ↓
-DELIVERY VERIFICATION & ESCROW PAYOUT TO ARTISAN BANK
-```
+
+    ARTISAN
+       ↓
+    CREATE PROFILE & SELECT LANGUAGE (13 Indian Languages)
+       ↓
+    SMART CATALOGING (Photo + Voice Description)
+       ↓
+    AI CRAFT ANALYSIS (Technique, Materials, Weave Density, Production Days)
+       ↓
+    MULTIMODAL CRAFT EVIDENCE PROFILE (GI Tag + Loom Video + Macro Photo)
+       ↓
+    LIVING-WAGE FAIR PRICING
+       ↓
+    CRAFT-CONSTRAINED TREND FUSION
+       ↓
+    PUBLISH TO BUYER MARKETPLACE
+       ↓
+    BUYER DISCOVERY & IMMERSIVE 3D / AR TRY-ON
+       ↓
+    DIRECT-TO-ARTISAN CHECKOUT & PAYMENT
+       ↓
+    ORDER DISPATCH
+       ↓
+    DELIVERY VERIFICATION & ARTISAN PAYOUT
 
 ---
 
 ## 2. Technology Stack
 
-- **Mobile Framework**: React Native 0.76 with Expo 52 Native Prebuild (`android/` Kotlin & Gradle project)
-- **Programming Language**: Modern JavaScript (ES2024) / Node.js LTS
-- **3D Rendering & WebGL**: Three.js + `expo-gl` hardware-accelerated 3D engine supporting GLB, glTF, and PBR textures
-- **AR Subsystem**: Surface anchor projection for craft pottery/decor; body-aware saree draping engine for garments
-- **Sensors & Hardware**: Camera (`expo-camera`), Microphone (`expo-av`), Geolocation (`expo-location`)
-- **Offline Persistence**: `@react-native-async-storage/async-storage` with deterministic sync queue
-- **State Management**: React Context API (`AuthContext`, `ProductsContext`, `CartContext`, `LanguageContext`)
-- **Backend & Auth**: Firebase Auth, Cloud Firestore, Firebase Storage
-- **Design System**: Heritage-Modern Design System (Terracotta `#D9531E`, Ivory `#FAF8F5`, Sand Gold `#D4AF37`)
+- *Mobile Framework*: React Native with Expo Native Prebuild
+- *Programming Language*: Modern JavaScript / Node.js
+- *3D Rendering & WebGL*: Three.js + expo-gl hardware-accelerated 3D engine supporting GLB, glTF, and PBR textures
+- *AR Subsystem*: Surface anchor projection for craft pottery/decor and body-aware garment visualization
+- *Sensors & Hardware*: Camera, Microphone, and Geolocation
+- *Offline Persistence*: @react-native-async-storage/async-storage with synchronization support
+- *State Management*: React Context API
+- *Backend & Auth*: Firebase Auth, Cloud Firestore, Firebase Storage
+- *Design System*: Heritage-Modern Design System
 
 ---
 
 ## 3. Architecture
 
-```
-                                  KARVIA MOBILE APPLICATION
-                             (Android Package: com.karvia.app)
-┌──────────────────────────────────────────────────────────────────────────────────────────┐
-│                                    PRESENTATION LAYER                                    │
-│  ┌────────────────────┐ ┌────────────────────┐ ┌────────────────────┐ ┌────────────────┐ │
-│  │   Splash & Lang    │ │ Artisan Dashboard  │ │ Buyer Marketplace  │ │ Immersive 3D/AR│ │
-│  │  (13 Indian Langs) │ │ (Voice, Add Craft) │ │(Search, Cart, Pay) │ │ (Try-On, Space)│ │
-│  └────────────────────┘ └────────────────────┘ └────────────────────┘ └────────────────┘ │
-├──────────────────────────────────────────────────────────────────────────────────────────┤
-│                                     STATE & BUSINESS LAYER                               │
-│  ┌───────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────────┐ │
-│  │ Auth & Role Context   │  │  Cart & Order State     │  │ Offline Sync & Storage      │ │
-│  │ (Artisan/Buyer/Admin) │  │  (Status, Live Timeline)│  │ (AsyncStorage + Sync Queue) │ │
-│  └───────────────────────┘  └─────────────────────────┘  └─────────────────────────────┘ │
-├──────────────────────────────────────────────────────────────────────────────────────────┤
-│                                 AI & INTELLIGENCE SERVICES                               │
-│  ┌───────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────────┐ │
-│  │ Smart Cataloging Engine│  │ Fair Pricing Assistant  │  │ Craft Evidence Analyzer     │ │
-│  │ (Vision + Voice Recog)│  │ (Cost + Margin + Market)│  │ (Multi-Factor Integrity)    │ │
-│  ├───────────────────────┤  ├─────────────────────────┤  ├─────────────────────────────┤ │
-│  │ Trend Fusion Studio   │  │ Raw Material Demand     │  │ Scheme Intelligence         │ │
-│  │ (Heritage-Preserving) │  │ (Cluster Aggregation)   │  │ (PM Vishwakarma & AHVY)     │ │
-│  └───────────────────────┘  └─────────────────────────┘  └─────────────────────────────┘ │
-├──────────────────────────────────────────────────────────────────────────────────────────┤
-│                                      BACKEND LAYER                                       │
-│    Firebase Auth  •  Cloud Firestore  •  Firebase Storage  •  Payment Gateway Adapter    │
-└──────────────────────────────────────────────────────────────────────────────────────────┘
-```
+    KARVIA MOBILE APPLICATION
+
+    ┌──────────────────────────────────────────────────────────────────────────────┐
+    │                            PRESENTATION LAYER                                │
+    │                                                                              │
+    │  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌─────────┐ │
+    │  │ Splash & Language│ │ Artisan Dashboard│ │ Buyer Marketplace│ │3D / AR  │ │
+    │  │ 13 Indian Langs  │ │ Voice & Add Craft│ │ Search, Cart, Pay│ │Try-On   │ │
+    │  └──────────────────┘ └──────────────────┘ └──────────────────┘ └─────────┘ │
+    ├──────────────────────────────────────────────────────────────────────────────┤
+    │                         STATE & BUSINESS LAYER                               │
+    │                                                                              │
+    │  ┌────────────────────┐ ┌────────────────────┐ ┌──────────────────────────┐ │
+    │  │ Auth & Role Context │ │ Cart & Order State │ │ Offline Storage & Sync   │ │
+    │  │ Artisan/Buyer/Admin │ │ Status & Timeline  │ │ AsyncStorage             │ │
+    │  └────────────────────┘ └────────────────────┘ └──────────────────────────┘ │
+    ├──────────────────────────────────────────────────────────────────────────────┤
+    │                       AI & INTELLIGENCE SERVICES                             │
+    │                                                                              │
+    │  ┌────────────────────┐ ┌────────────────────┐ ┌──────────────────────────┐ │
+    │  │ Smart Cataloging   │ │ Fair Pricing       │ │ Craft Evidence Analyzer  │ │
+    │  │ Image + Voice      │ │ Cost & Margin      │ │ Heritage Documentation   │ │
+    │  ├────────────────────┤ ├────────────────────┤ ├──────────────────────────┤ │
+    │  │ Trend Fusion       │ │ Raw Material       │ │ Government Scheme         │ │
+    │  │ Heritage-Preserving│ │ Intelligence       │ │ Intelligence              │ │
+    │  └────────────────────┘ └────────────────────┘ └──────────────────────────┘ │
+    ├──────────────────────────────────────────────────────────────────────────────┤
+    │                              BACKEND LAYER                                   │
+    │                                                                              │
+    │          Firebase Auth • Cloud Firestore • Firebase Storage                  │
+    └──────────────────────────────────────────────────────────────────────────────┘
 
 ---
 
 ## 4. Installation & Setup
 
 ### Prerequisites
-- Node.js LTS (v20+ or v24+)
-- Git for Windows / macOS / Linux
-- Java OpenJDK 17 (`java -version`)
-- Android Studio with Android SDK Platform 34 (for standalone APK compilation)
+
+- Node.js LTS
+- Git
+- Java OpenJDK 17
+- Android Studio
+- Android SDK
 
 ### Quick Start
-```bash
-# 1. Clone or navigate to the repository
-cd "c:\Users\WELCOME\OneDrive\Desktop\karvia 2"
 
-# 2. Install all dependencies
-npm install
+    # Install dependencies
+    npm install
 
-# 3. Verify project integrity and execute test suite
-npm test
+    # Start Expo Development Server
+    npm start
 
-# 4. Start Expo Development Server
-npm start
-```
+The application can be tested using Expo Go or a native Android/iOS development environment.
 
 ---
 
 ## 5. Environment Variables
 
-Copy `.env.example` to `.env` and fill in your keys:
-```bash
-cp .env.example .env
-```
+Environment-specific configuration is managed separately from the source code.
 
-| Variable | Description |
-|---|---|
-| `EXPO_PUBLIC_FIREBASE_API_KEY` | Firebase Web/Android API Key |
-| `EXPO_PUBLIC_FIREBASE_PROJECT_ID` | Google Cloud / Firebase Project ID |
-| `EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET` | Firebase Cloud Storage Bucket |
-| `EXPO_PUBLIC_GEMINI_API_KEY` | Gemini API Key for multimodal inference |
-| `EXPO_PUBLIC_RAZORPAY_KEY_ID` | Razorpay / UPI Gateway Key ID |
-| `EXPO_PUBLIC_DEFAULT_LOCALE` | Default language code (`en`, `ta`, `hi`, etc.) |
-| `EXPO_PUBLIC_ENABLE_OFFLINE_SYNC` | Enable offline draft queue (`true`) |
+A sample environment configuration is provided through:
+
+    .env.example
+
+Private credentials, API keys, passwords, and other sensitive configuration should not be committed to the repository.
 
 ---
 
 ## 6. Firebase & Cloud Architecture
 
-KARVIA uses Cloud Firestore with the following scalable schema:
-- `users`: User profiles, contact numbers, biometric Pehchan status, and role definitions.
-- `artisans`: Verified workshop addresses, craft lineage, years of experience, and cluster affiliation.
-- `products`: Craft catalog with pricing, dimensions, production days, GI verification, and 3D asset URLs.
-- `orders`: Purchase orders, shipping addresses, live fulfillment timeline, and escrow payout status.
-- `craftEvidence`: Multi-factor audit records containing macro photo URLs, pit-loom videos, and declarations.
-- `governmentSchemes`: Central & state subsidy data (PM Vishwakarma, AHVY, SAMARTH, Mudra).
-- `rawMaterialDemand`: Aggregated cluster purchasing forecasts and collective supplier bids.
+KARVIA uses Firebase as part of its backend architecture.
+
+The system is structured to support:
+
+- users: User profiles and role definitions
+- artisans: Artisan profiles, craft information, and cluster details
+- products: Craft catalogue and product information
+- orders: Purchase and order management
+- craftEvidence: Craft documentation and evidence
+- governmentSchemes: Government support and scheme information
+- rawMaterialDemand: Raw material and cluster intelligence
+
+Firebase integration will continue to be expanded as the prototype develops.
 
 ---
 
 ## 7. Firestore Security Rules
 
-Deploy the following production rules to Firestore (`firestore.rules`):
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Helper functions
-    function isAuthenticated() {
-      return request.auth != null;
-    }
-    function isAdmin() {
-      return isAuthenticated() && request.auth.token.role == 'admin';
-    }
-    function isArtisanOwner(artisanId) {
-      return isAuthenticated() && request.auth.uid == artisanId;
-    }
+Firestore security rules are included as part of the project's backend architecture.
 
-    // Products collection: Public read, artisan-authenticated write
-    match /products/{productId} {
-      allow read: if true;
-      allow create: if isAuthenticated();
-      allow update, delete: if isArtisanOwner(resource.data.artisanId) || isAdmin();
-    }
+The rules are structured around role-based access for:
 
-    // Orders: Only accessible to the buyer or the fulfilling artisan
-    match /orders/{orderId} {
-      allow read: if isAuthenticated() && (
-        request.auth.uid == resource.data.buyerId ||
-        request.auth.uid == resource.data.artisanId ||
-        isAdmin()
-      );
-      allow create: if isAuthenticated();
-      allow update: if isAuthenticated() && (
-        request.auth.uid == resource.data.artisanId || isAdmin()
-      );
-    }
+- Artisans
+- Buyers
+- Administrators
 
-    // Admin-only collections
-    match /adminConfig/{document=**} {
-      allow read, write: if isAdmin();
-    }
-  }
-}
-```
+The security configuration will continue to evolve as the prototype develops.
 
 ---
 
-## 8. Multilingual System
+## 8. Multilingual System (13 Indian Languages)
 
-KARVIA provides localized resources for **13 official Indian languages**:
-1. **English** (`en`)
-2. **Tamil** (`ta` - தமிழ்)
-3. **Hindi** (`hi` - हिन्दी)
-4. **Malayalam** (`ml` - മലയാളം)
-5. **Telugu** (`te` - తెలుగు)
-6. **Kannada** (`kn` - ಕನ್ನಡ)
-7. **Punjabi** (`pa` - ਪੰਜਾਬੀ)
-8. **Bengali** (`bn` - বাংলা)
-9. **Marathi** (`mr` - मराठी)
-10. **Gujarati** (`gu` - ગુજરાતી)
-11. **Odia** (`or` - ଓଡ଼ିଆ)
-12. **Assamese** (`as` - অসমীয়া)
-13. **Urdu** (`ur` - اردو with RTL alignment)
+KARVIA includes a multilingual framework designed to improve accessibility for artisans and buyers from different linguistic backgrounds.
+
+The architecture supports *13 Indian languages*:
+
+1. *English* (en)
+2. *Tamil* (ta - தமிழ்)
+3. *Hindi* (hi - हिन्दी)
+4. *Malayalam* (ml - മലയാളം)
+5. *Telugu* (te - తెలుగు)
+6. *Kannada* (kn - ಕನ್ನಡ)
+7. *Punjabi* (pa - ਪੰਜਾਬੀ)
+8. *Bengali* (bn - বাংলা)
+9. *Marathi* (mr - मराठी)
+10. *Gujarati* (gu - ગુજરાતી)
+11. *Odia* (or - ଓଡ଼ିଆ)
+12. *Assamese* (as - অসমীয়া)
+13. *Urdu* (ur - اردو)
+
+The multilingual architecture is intended to reduce language barriers and improve accessibility for artisans.
 
 ---
 
 ## 9. AI & Intelligence Services
 
 ### A. Smart Cataloging
-Artisans photograph their craft and speak in their local language. The AI extracts weave characteristics, materials, dimensions, and craft classification, producing an editable listing. **Artisans retain full manual edit control before publishing.**
+
+Artisans can provide craft information through images and descriptions, with AI-assisted processing intended to help generate structured product information.
+
+The system is designed to allow artisans to review and edit information before publishing.
 
 ### B. Living-Wage Fair Pricing
+
 $$\text{Total Base Cost} = \text{Materials} + (\text{Crafting Hours} \times \text{Fair Hourly Wage}) + \text{Packaging} + \text{Overhead}$$
+
 $$\text{Recommended Retail Price} = \frac{\text{Total Base Cost}}{1 - \text{Desired Margin}}$$
 
+The pricing system is designed to help artisans understand production costs and develop appropriate pricing.
+
 ### C. Multimodal Craft Evidence Profile
-Instead of computing fabricated "100% handmade" AI scores, KARVIA audits transparent evidence factors:
-- Macro weave photography
-- Workshop process video
-- Silk Mark / Metallurgical lab certification
-- Master artisan voice self-declaration
-- Cluster registry confirmation
-- Official GI tag (e.g. GI-12 for Kanchipuram)
+
+The platform explores structured craft documentation using:
+
+- Macro craft photography
+- Workshop process information
+- Artisan voice self-declaration
+- Craft and heritage information
+- Certification-related information
+- GI-related information where applicable
 
 ### D. Trend Fusion Studio
-Generates contemporary color palettes (Earthy Minimalism, Neo-Heritage, Pastel Geometry) while strictly preserving traditional craft techniques and cultural sanctity.
+
+The concept explores contemporary product ideas while respecting traditional craft techniques, motifs, materials, and cultural identity.
 
 ### E. Government Scheme Intelligence
-Tailors official benefits (PM Vishwakarma ₹15,000 toolkits and collateral-free credit, AHVY cluster grants, SAMARTH skilling) to the artisan's specific craft trade.
+
+The platform is designed to help connect artisans with relevant government schemes and support opportunities.
 
 ---
 
 ## 10. True 3D & Immersive AR System
 
-- **3D Viewer**: Interactive 360° orbit rotation, pinch-zoom, and specular lighting reflection simulation.
-- **Garment Virtual Try-On**:
-  - *Mode 1 (Live AR Camera)*: Real-time pose fitting with cloth drape physics.
-  - *Mode 2 (Photo Upload)*: Full-body photo calibration with customizable Saree Pallu styles (Open Shoulder, Pleated Pin, Gujarati Seedha Pallu).
-- **Visualize in My Space**: Surface/plane detection for Pottery, Brass sculptures, and lamps with move, rotate, scale, and reposition controls.
-- **Hardware Compatibility Check**: Gracefully falls back to the interactive 3D viewer on devices without ARCore.
+The prototype includes exploration of:
+
+- *3D Viewer*: Interactive product visualization and rotation
+- *Garment Virtual Try-On*: Body-aware garment visualization and photo-based visualization
+- *Visualize in My Space*: Product visualization in physical spaces
+- *3D Product Experience*: Interactive presentation of craft products
+
+These features form part of the ongoing prototype development.
 
 ---
 
 ## 11. Commerce, Escrow & Payment Gateway
 
-1. **Persistent Cart**: Quantity steppers, discount codes, and automatic Free Shipping over ₹2,000.
-2. **Checkout**: Full recipient address capture and payment method selection (UPI, Credit/Debit Cards, Net Banking, COD).
-3. **Cryptographic Verification**: Server-side signature validation before order persistence.
-4. **Artisan Escrow**: Payment is held securely and released directly to the artisan's verified bank account upon delivery.
-5. **Live Milestone Timeline**:
-   $$\text{PLACED} \rightarrow \text{CONFIRMED} \rightarrow \text{PROCESSING} \rightarrow \text{SHIPPED} \rightarrow \text{DELIVERED}$$
+The application architecture explores:
+
+1. *Persistent Cart*: Product quantities and cart management
+2. *Checkout*: Address and payment method selection
+3. *Payment Workflow*: Digital payment integration concepts
+4. *Artisan Payout*: Direct artisan payment concepts
+5. *Order Management*: Order status and tracking
+6. *Milestone Timeline*:
+
+       PLACED → CONFIRMED → PROCESSING → SHIPPED → DELIVERED
+
+Payment and escrow functionality will be further integrated and validated during subsequent development stages.
 
 ---
 
 ## 12. Offline-First Architecture & Sync Queue
 
-- Artisans can create draft products, edit listings, and manage stock while offline.
-- When connectivity returns, the background sync queue automatically posts pending updates to Cloud Firestore.
-- Header displays real-time sync indicators: **Offline**, **Syncing...**, or **Synced**.
+KARVIA explores offline-first functionality to support artisans operating in areas with limited or unstable connectivity.
+
+The architecture includes:
+
+- Local data storage
+- Offline draft creation
+- Synchronization concepts
+- Connectivity status indicators
+- Data synchronization workflows
+
+This approach is intended to improve usability in low-connectivity environments.
 
 ---
 
 ## 13. Testing & Quality Audit
 
-Run the automated test suite verifying all 9 core subsystems:
-```bash
-npm test
-```
+The prototype is being tested across different application modules and user flows.
 
-Expected output:
-```
-====================================================
-     KARVIA MOBILE PLATFORM — INTEGRITY AUDIT       
-====================================================
-...
- AUDIT COMPLETE: 51 Passed | 0 Failed
-====================================================
-```
+Testing includes:
+
+- UI testing
+- Navigation testing
+- Feature validation
+- Role-based flows
+- Data handling
+- Prototype integration testing
+- Android testing
+
+Further testing and validation will be performed as development progresses.
 
 ---
 
 ## 14. Android APK / AAB Build Instructions
 
-The project is prebuilt with complete native Android build files inside `android/`:
-- **Package Name**: `com.karvia.app`
-- **Application ID**: `com.karvia.app`
-- **Permissions**: `CAMERA`, `RECORD_AUDIO`, `INTERNET`, `ACCESS_FINE_LOCATION`, `READ_EXTERNAL_STORAGE`
+The project contains native Android build files inside android/.
 
 ### Building the Debug APK
-```bash
-# 1. Open PowerShell and navigate to project root
-cd "c:\Users\WELCOME\OneDrive\Desktop\karvia 2"
 
-# 2. Run Gradle assembleDebug via the generated wrapper
-cd android
-.\gradlew.bat assembleDebug
-```
-The output APK is generated at:
-`android/app/build/outputs/apk/debug/app-debug.apk`
+    cd android
+    .\gradlew.bat assembleDebug
 
-### Building the Release AAB for Google Play Store
-```bash
-cd android
-.\gradlew.bat bundleRelease
-```
-The output Android App Bundle is generated at:
-`android/app/build/outputs/bundle/release/app-release.aab`
+The generated APK is available at:
+
+    android/app/build/outputs/apk/debug/app-debug.apk
+
+### Building the Release AAB
+
+    cd android
+    .\gradlew.bat bundleRelease
+
+The generated Android App Bundle is available at:
+
+    android/app/build/outputs/bundle/release/app-release.aab
 
 ---
 
 ## 15. iOS Build Instructions
 
-```bash
-# 1. Run Expo prebuild for iOS (on macOS)
-npx expo prebuild --platform ios
+The project is structured to support iOS development through Expo and native build tools.
 
-# 2. Install CocoaPods
-cd ios && pod install
+### Start Expo
 
-# 3. Build with Xcode or fastlane
-xcodebuild -workspace karvia.xcworkspace -scheme karvia -configuration Release
-```
+    npx expo start
+
+### Generate iOS Native Project
+
+    npx expo prebuild --platform ios
+
+Further iOS build configuration will be completed during subsequent development stages.
 
 ---
 
-## 16. Role-Based Access Control
+## 16. Role-Based Access Control (RBAC)
 
-The app supports 3 roles easily switched via the header pill:
-- **Artisan**: Voice AI assistant, Smart Cataloging, Living-Wage pricing, Orders fulfillment, Earnings.
-- **Buyer**: Marketplace browsing, Multi-facet search, 3D product view, Virtual Try-On, In Space AR, Cart, Checkout, Order tracking.
-- **Admin**: Artisan verification queue, Pehchan check, content moderation, system metrics.
+The application architecture supports three primary roles:
+
+### Artisan
+
+- Voice AI assistant
+- Smart Cataloging
+- Fair pricing assistance
+- Product management
+- Order fulfillment
+- Earnings
+
+### Buyer
+
+- Marketplace browsing
+- Multi-facet product search
+- 3D product viewing
+- Virtual Try-On
+- In-Space visualization
+- Cart
+- Checkout
+- Order tracking
+
+### Admin
+
+- Artisan verification
+- Content moderation
+- Platform monitoring
+- Administrative controls
 
 ---
 
 ## 17. Production Deployment Guide
 
-1. **Deploy Firebase Security Rules**:
-   ```bash
-   npx firebase deploy --only firestore:rules,storage
-   ```
-2. **Build Standalone Production Binaries with EAS (Expo Application Services)**:
-   ```bash
-   npx eas-cli build --platform android --profile production
-   ```
-3. **Submit to Google Play Store**:
-   ```bash
-   npx eas-cli submit --platform android
-   ```
+The current KARVIA repository represents a *prototype under development* and is not presented as a final production deployment.
+
+Future deployment stages will include:
+
+1. Backend finalization
+2. Security hardening
+3. API integration
+4. Payment integration
+5. Performance optimization
+6. User testing
+7. Production configuration
+8. Deployment and monitoring
 
 ---
 
-*KARVIA — Where Indian Craftsmanship Meets the Digital World.*
+## Current Development Status
+
+KARVIA is currently under active development for *Smart India Hackathon 2026 — SIH26197*.
+
+Approximately *40% of the prototype has been developed*, covering the core application structure, interfaces, navigation, role-based flows, and several feature modules.
+
+The remaining development will focus on completing and integrating the planned modules, improving backend functionality, validating the user experience, and further aligning the platform with the requirements of *SIH26197*.
+
+---
+
+## Future Development
+
+Planned development areas include:
+
+- Advanced AI integration
+- Complete backend implementation
+- Enhanced multilingual support
+- Advanced craft documentation
+- Market and buyer integration
+- Secure payment workflows
+- Improved 2D / 3D experiences
+- Offline capabilities
+- User testing
+- Platform scalability
+
+---
+
+## Disclaimer
+
+KARVIA is a prototype developed for *Smart India Hackathon 2026 — SIH26197*.
+
+The repository represents the current stage of development and experimentation. Features and integrations may be further modified, expanded, or refined during the development process.
