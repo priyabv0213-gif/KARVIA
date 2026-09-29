@@ -2,7 +2,7 @@
 
 > *Problem Addressed: Smart India Hackathon (SIH26197) — *AI-Driven Market Linkage and Smart Cataloging Mobile Application for Marginalized Artisans.
 
-> *Project Status*: Prototype under development — approximately 40% of the prototype has been developed.
+> *Project Status*: Prototype under development — approximately 60% of the prototype has been developed.
 
 KARVIA is an evolving mobile application prototype engineered for Android and iOS that aims to digitize the economic journey of Indian weavers, potters, and traditional craft communities while preserving their cultural heritage.
 
@@ -401,7 +401,7 @@ Future deployment stages will include:
 
 KARVIA is currently under active development for *Smart India Hackathon 2026 — SIH26197*.
 
-Approximately *40% of the prototype has been developed*, covering the core application structure, interfaces, navigation, role-based flows, and several feature modules.
+Approximately *60% of the prototype has been developed*, covering the core application structure, interfaces, navigation, role-based flows, and several feature modules.
 
 The remaining development will focus on completing and integrating the planned modules, improving backend functionality, validating the user experience, and further aligning the platform with the requirements of *SIH26197*.
 
