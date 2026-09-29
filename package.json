@@ -1,0 +1,30 @@
+{
+  "name": "karvia",
+  "version": "1.0.0",
+  "description": "KARVIA - AI-Powered Artisan Commerce, Heritage & Immersive 3D Mobile Platform",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "prebuild": "expo prebuild --clean",
+    "build:apk": "expo prebuild --platform android && cd android && .\\gradlew.bat assembleDebug",
+    "test": "node scripts/verify-all.js"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "^57.0.24",
+    "expo-asset": "^57.0.15",
+    "expo-splash-screen": "~57.0.9",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "babel-preset-expo": "~57.0.0"
+  },
+  "private": true
+}
